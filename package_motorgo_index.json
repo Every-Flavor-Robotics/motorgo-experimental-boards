@@ -31,36 +31,6 @@
                         },
                         {
                             "packager": "motorgo_experimental",
-                            "name": "xtensa-esp32-elf-gcc",
-                            "version": "esp-12.2.0_20230208"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
-                            "name": "xtensa-esp32s2-elf-gcc",
-                            "version": "esp-12.2.0_20230208"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
-                            "name": "xtensa-esp32s3-elf-gcc",
-                            "version": "esp-12.2.0_20230208"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
-                            "name": "xtensa-esp-elf-gdb",
-                            "version": "12.1_20231023"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
-                            "name": "riscv32-esp-elf-gcc",
-                            "version": "esp-12.2.0_20230208"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
-                            "name": "riscv32-esp-elf-gdb",
-                            "version": "12.1_20231023"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
                             "name": "openocd-esp32",
                             "version": "v0.12.0-esp32-20240821"
                         },
