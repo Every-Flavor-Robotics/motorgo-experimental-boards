@@ -28,3 +28,22 @@ The table below describes the development status of the MotorGo Experimental Boa
 ## Installation
 
 To install the board definitions for MotorGo Experimental Boards, follow the instructions below:
+
+1. Open the Arduino IDE.
+2. Go to `File > Preferences` (Windows/Linux) or `Arduino > Preferences` (macOS).
+3. In the `Additional Boards Manager URLs` field, add the following URL:
+   ```
+   https://raw.githubusercontent.com/Every-Flavor-Robotics/motorgo-experimental-boards/refs/heads/main/package_motorgo_index.json
+   ```
+4. Click `OK`.
+5. Go to `Tools > Board > Boards Manager...`.
+6. Search for `MotorGo Experimental`.
+7. Click `Install`.
+8. Once the installation is complete, you can select the MotorGo Experimental Boards from the `Tools > Board` menu.
+
+## Contributing
+
+Development Notes:
+* The current esp32 core version is `3.1.1`.
+* The platform.txt file has to be copied from an arduino installation, because it differs from the one in the arduino-esp32 repository.
+*
