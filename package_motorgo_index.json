@@ -23,7 +23,13 @@
                             "name": "MotorGo Axis (Beta)"
                         }
                     ],
-                    "toolsDependencies": []
+                    "toolsDependencies": [
+                        {
+                            "packager": "esp32",
+                            "name": "esptool_py",
+                            "version": "4.6"
+                        }
+                    ]
                 }
             ],
             "tools": [
