@@ -24,7 +24,6 @@ The table below describes the development status of the MotorGo Experimental Boa
 | MotorGo Mini | Production | esp32 board definitions |
 | MotorGo Plink | Beta | Experimental Boards |
 | MotorGo Axis | Beta | Experimental Boards |
-| - | - | - |
 
 ## Installation
 
