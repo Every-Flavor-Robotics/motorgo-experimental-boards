@@ -13,8 +13,8 @@
                     "category": "Contributed",
                     "url": "https://github.com/Every-Flavor-Robotics/motorgo-experimental-boards/raw/refs/heads/main/motorgo_experimental_0.1.zip",
                     "archiveFileName": "motorgo_experimental_0.1.zip",
-                    "checksum": "SHA-256:6e1dced29e29f2fc7ac74611b1972a65e7baee7a91b720cfce8d3c0f5ba6cef3",
-                    "size": "27813360",
+                    "checksum": "SHA-256:c445e6dffdcfda03417d07ffd5d6504f22c4f88b6dcb2d365f1d43f58631a397",
+                    "size": "28542119",
                     "boards": [
                         {
                             "name": "MotorGo Plink (Beta)"
@@ -26,8 +26,63 @@
                     "toolsDependencies": [
                         {
                             "packager": "motorgo_experimental",
+                            "name": "esp32-arduino-libs",
+                            "version": "idf-release_v5.1-33fbade6"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "xtensa-esp32-elf-gcc",
+                            "version": "esp-12.2.0_20230208"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "xtensa-esp32s2-elf-gcc",
+                            "version": "esp-12.2.0_20230208"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "xtensa-esp32s3-elf-gcc",
+                            "version": "esp-12.2.0_20230208"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "xtensa-esp-elf-gdb",
+                            "version": "12.1_20231023"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "riscv32-esp-elf-gcc",
+                            "version": "esp-12.2.0_20230208"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "riscv32-esp-elf-gdb",
+                            "version": "12.1_20231023"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "openocd-esp32",
+                            "version": "v0.12.0-esp32-20240821"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
                             "name": "esptool_py",
                             "version": "4.6"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "mkspiffs",
+                            "version": "0.2.3"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "mklittlefs",
+                            "version": "3.0.0-gnu12-dc7f933"
+                        },
+                        {
+                            "packager": "motorgo_experimental",
+                            "name": "dfu-util",
+                            "version": "0.11.0-arduino5"
                         }
                     ]
                 }
