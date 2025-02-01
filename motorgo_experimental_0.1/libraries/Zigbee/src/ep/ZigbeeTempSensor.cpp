@@ -1,8 +1,9 @@
 #include "ZigbeeTempSensor.h"
-#if SOC_IEEE802154_SUPPORTED
+#if SOC_IEEE802154_SUPPORTED && CONFIG_ZB_ENABLED
 
 ZigbeeTempSensor::ZigbeeTempSensor(uint8_t endpoint) : ZigbeeEP(endpoint) {
   _device_id = ESP_ZB_HA_TEMPERATURE_SENSOR_DEVICE_ID;
+  _humidity_sensor = false;
 
   esp_zb_temperature_sensor_cfg_t temp_sensor_cfg = ESP_ZB_DEFAULT_TEMPERATURE_SENSOR_CONFIG();
   _cluster_list = esp_zb_temperature_sensor_clusters_create(&temp_sensor_cfg);
@@ -34,33 +35,22 @@ void ZigbeeTempSensor::setTolerance(float tolerance) {
 }
 
 void ZigbeeTempSensor::setReporting(uint16_t min_interval, uint16_t max_interval, float delta) {
-  esp_zb_zcl_reporting_info_t reporting_info = {
-    .direction = ESP_ZB_ZCL_CMD_DIRECTION_TO_SRV,
-    .ep = _endpoint,
-    .cluster_id = ESP_ZB_ZCL_CLUSTER_ID_TEMP_MEASUREMENT,
-    .cluster_role = ESP_ZB_ZCL_CLUSTER_SERVER_ROLE,
-    .attr_id = ESP_ZB_ZCL_ATTR_TEMP_MEASUREMENT_VALUE_ID,
-    .u =
-      {
-        .send_info =
-          {
-            .min_interval = min_interval,
-            .max_interval = max_interval,
-            .delta =
-              {
-                .u16 = (uint16_t)(delta * 100),  // Convert delta to ZCL uint16_t
-              },
-            .def_min_interval = min_interval,
-            .def_max_interval = max_interval,
-          },
-      },
-    .dst =
-      {
-        .profile_id = ESP_ZB_AF_HA_PROFILE_ID,
-      },
-    .manuf_code = ESP_ZB_ZCL_ATTR_NON_MANUFACTURER_SPECIFIC,
-  };
+  esp_zb_zcl_reporting_info_t reporting_info;
+  memset(&reporting_info, 0, sizeof(esp_zb_zcl_reporting_info_t));
+  reporting_info.direction = ESP_ZB_ZCL_CMD_DIRECTION_TO_SRV;
+  reporting_info.ep = _endpoint;
+  reporting_info.cluster_id = ESP_ZB_ZCL_CLUSTER_ID_TEMP_MEASUREMENT;
+  reporting_info.cluster_role = ESP_ZB_ZCL_CLUSTER_SERVER_ROLE;
+  reporting_info.attr_id = ESP_ZB_ZCL_ATTR_TEMP_MEASUREMENT_VALUE_ID;
+  reporting_info.u.send_info.min_interval = min_interval;
+  reporting_info.u.send_info.max_interval = max_interval;
+  reporting_info.u.send_info.def_min_interval = min_interval;
+  reporting_info.u.send_info.def_max_interval = max_interval;
+  reporting_info.u.send_info.delta.u16 = (uint16_t)(delta * 100);  // Convert delta to ZCL uint16_t
+  reporting_info.dst.profile_id = ESP_ZB_AF_HA_PROFILE_ID;
+  reporting_info.manuf_code = ESP_ZB_ZCL_ATTR_NON_MANUFACTURER_SPECIFIC, esp_zb_lock_acquire(portMAX_DELAY);
   esp_zb_zcl_update_reporting_info(&reporting_info);
+  esp_zb_lock_release();
 }
 
 void ZigbeeTempSensor::setTemperature(float temperature) {
@@ -80,7 +70,7 @@ void ZigbeeTempSensor::reportTemperature() {
   esp_zb_zcl_report_attr_cmd_t report_attr_cmd;
   report_attr_cmd.address_mode = ESP_ZB_APS_ADDR_MODE_DST_ADDR_ENDP_NOT_PRESENT;
   report_attr_cmd.attributeID = ESP_ZB_ZCL_ATTR_TEMP_MEASUREMENT_VALUE_ID;
-  report_attr_cmd.cluster_role = ESP_ZB_ZCL_CLUSTER_SERVER_ROLE;
+  report_attr_cmd.direction = ESP_ZB_ZCL_CMD_DIRECTION_TO_CLI;
   report_attr_cmd.clusterID = ESP_ZB_ZCL_CLUSTER_ID_TEMP_MEASUREMENT;
   report_attr_cmd.zcl_basic_cmd.src_endpoint = _endpoint;
 
@@ -101,6 +91,7 @@ void ZigbeeTempSensor::addHumiditySensor(float min, float max, float tolerance) 
   esp_zb_humidity_meas_cluster_add_attr(humidity_cluster, ESP_ZB_ZCL_ATTR_REL_HUMIDITY_MEASUREMENT_MAX_VALUE_ID, &zb_max);
   esp_zb_humidity_meas_cluster_add_attr(humidity_cluster, ESP_ZB_ZCL_ATTR_REL_HUMIDITY_TOLERANCE_ID, &zb_tolerance);
   esp_zb_cluster_list_add_humidity_meas_cluster(_cluster_list, humidity_cluster, ESP_ZB_ZCL_CLUSTER_SERVER_ROLE);
+  _humidity_sensor = true;
 }
 
 void ZigbeeTempSensor::setHumidity(float humidity) {
@@ -121,7 +112,7 @@ void ZigbeeTempSensor::reportHumidity() {
   esp_zb_zcl_report_attr_cmd_t report_attr_cmd;
   report_attr_cmd.address_mode = ESP_ZB_APS_ADDR_MODE_DST_ADDR_ENDP_NOT_PRESENT;
   report_attr_cmd.attributeID = ESP_ZB_ZCL_ATTR_REL_HUMIDITY_MEASUREMENT_VALUE_ID;
-  report_attr_cmd.cluster_role = ESP_ZB_ZCL_CLUSTER_SERVER_ROLE;
+  report_attr_cmd.direction = ESP_ZB_ZCL_CMD_DIRECTION_TO_CLI;
   report_attr_cmd.clusterID = ESP_ZB_ZCL_CLUSTER_ID_REL_HUMIDITY_MEASUREMENT;
   report_attr_cmd.zcl_basic_cmd.src_endpoint = _endpoint;
 
@@ -132,33 +123,30 @@ void ZigbeeTempSensor::reportHumidity() {
 }
 
 void ZigbeeTempSensor::setHumidityReporting(uint16_t min_interval, uint16_t max_interval, float delta) {
-  esp_zb_zcl_reporting_info_t reporting_info = {
-    .direction = ESP_ZB_ZCL_CMD_DIRECTION_TO_SRV,
-    .ep = _endpoint,
-    .cluster_id = ESP_ZB_ZCL_CLUSTER_ID_REL_HUMIDITY_MEASUREMENT,
-    .cluster_role = ESP_ZB_ZCL_CLUSTER_SERVER_ROLE,
-    .attr_id = ESP_ZB_ZCL_ATTR_REL_HUMIDITY_MEASUREMENT_VALUE_ID,
-    .u =
-      {
-        .send_info =
-          {
-            .min_interval = min_interval,
-            .max_interval = max_interval,
-            .delta =
-              {
-                .u16 = (uint16_t)(delta * 100),  // Convert delta to ZCL uint16_t
-              },
-            .def_min_interval = min_interval,
-            .def_max_interval = max_interval,
-          },
-      },
-    .dst =
-      {
-        .profile_id = ESP_ZB_AF_HA_PROFILE_ID,
-      },
-    .manuf_code = ESP_ZB_ZCL_ATTR_NON_MANUFACTURER_SPECIFIC,
-  };
+  esp_zb_zcl_reporting_info_t reporting_info;
+  memset(&reporting_info, 0, sizeof(esp_zb_zcl_reporting_info_t));
+  reporting_info.direction = ESP_ZB_ZCL_CMD_DIRECTION_TO_SRV;
+  reporting_info.ep = _endpoint;
+  reporting_info.cluster_id = ESP_ZB_ZCL_CLUSTER_ID_REL_HUMIDITY_MEASUREMENT;
+  reporting_info.cluster_role = ESP_ZB_ZCL_CLUSTER_SERVER_ROLE;
+  reporting_info.attr_id = ESP_ZB_ZCL_ATTR_REL_HUMIDITY_MEASUREMENT_VALUE_ID;
+  reporting_info.u.send_info.min_interval = min_interval;
+  reporting_info.u.send_info.max_interval = max_interval;
+  reporting_info.u.send_info.def_min_interval = min_interval;
+  reporting_info.u.send_info.def_max_interval = max_interval;
+  reporting_info.u.send_info.delta.u16 = (uint16_t)(delta * 100);  // Convert delta to ZCL uint16_t
+  reporting_info.dst.profile_id = ESP_ZB_AF_HA_PROFILE_ID;
+  reporting_info.manuf_code = ESP_ZB_ZCL_ATTR_NON_MANUFACTURER_SPECIFIC;
+  esp_zb_lock_acquire(portMAX_DELAY);
   esp_zb_zcl_update_reporting_info(&reporting_info);
+  esp_zb_lock_release();
 }
 
-#endif  //SOC_IEEE802154_SUPPORTED
+void ZigbeeTempSensor::report() {
+  reportTemperature();
+  if (_humidity_sensor) {
+    reportHumidity();
+  }
+}
+
+#endif  //SOC_IEEE802154_SUPPORTED && CONFIG_ZB_ENABLED
