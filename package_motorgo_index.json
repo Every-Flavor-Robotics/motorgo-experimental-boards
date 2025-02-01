@@ -1,0 +1,32 @@
+{
+    "packages": [
+        {
+            "name": "motorgo_experimental_v0.1",
+            "maintainer": "Every Flavor Robotics, LLC",
+            "websiteURL": "https://motorgo.com",
+            "email": "support@motorgo.com",
+            "platforms": [
+                {
+                    "name": "MotorGo",
+                    "architecture": "esp32",
+                    "version": "0.1",
+                    "category": "Contributed",
+                    "url": "",
+                    "archiveFileName": "",
+                    "checksum": "SHA-256:",
+                    "size": "79737310",
+                    "boards": [
+                        {
+                            "name": "MotorGo Plink (Beta)"
+                        },
+                        {
+                            "name": "MotorGo Axis (Beta)"
+                        }
+                    ],
+                    "toolsDependencies": []
+                }
+            ],
+            "tools": []
+        }
+    ]
+}
