@@ -13,8 +13,8 @@
                     "category": "Contributed",
                     "url": "https://github.com/Every-Flavor-Robotics/motorgo-experimental-boards/raw/refs/heads/main/motorgo_experimental_0.1.zip",
                     "archiveFileName": "motorgo_experimental_0.1.zip",
-                    "checksum": "SHA-256:b2aa93a5dbf973047ff28432a2e9dbc6fcbc1a90c3bf85d788dc078d588b5fed",
-                    "size": "27813350",
+                    "checksum": "SHA-256:6e1dced29e29f2fc7ac74611b1972a65e7baee7a91b720cfce8d3c0f5ba6cef3",
+                    "size": "27813360",
                     "boards": [
                         {
                             "name": "MotorGo Plink (Beta)"
