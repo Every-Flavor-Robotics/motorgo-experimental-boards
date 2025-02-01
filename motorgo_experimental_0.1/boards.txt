@@ -293,8 +293,8 @@ motorgo_axis.build.bootloader_addr=0x0
 motorgo_axis.build.target=esp32s3
 motorgo_axis.build.mcu=esp32s3
 motorgo_axis.build.core=esp32
-motorgo_axis.build.variant=motorgo_axis_1
-motorgo_axis.build.board=MOTORGO_AXIS_1
+motorgo_axis.build.variant=motorgo_axis
+motorgo_axis.build.board=MOTORGO_AXIS
 
 motorgo_axis.build.usb_mode=1
 motorgo_axis.build.cdc_on_boot=1
