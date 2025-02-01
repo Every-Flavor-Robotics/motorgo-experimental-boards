@@ -44,7 +44,7 @@ esp32_family.build.board=ESP32_FAMILY
 
 ##############################################################
 
-motorgo_plink.name=MotorGo Plink
+motorgo_plink.name=MotorGo Plink (Beta)
 motorgo_plink.vid.0=0x303a
 motorgo_plink.pid.0=0x1001
 
@@ -267,7 +267,7 @@ motorgo_plink.menu.EraseFlash.all.upload.erase_cmd=-e
 
 ##############################################################
 
-motorgo_axis.name=MotorGo Axis
+motorgo_axis.name=MotorGo Axis (Beta)
 motorgo_axis.vid.0=0x303a
 motorgo_axis.pid.0=0x1001
 
