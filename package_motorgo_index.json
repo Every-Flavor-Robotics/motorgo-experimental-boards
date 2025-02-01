@@ -7,14 +7,14 @@
             "email": "support@motorgo.com",
             "platforms": [
                 {
-                    "name": "MotorGo",
+                    "name": "MotorGo Experimental",
                     "architecture": "esp32",
                     "version": "0.1",
                     "category": "Contributed",
-                    "url": "",
-                    "archiveFileName": "",
-                    "checksum": "SHA-256:",
-                    "size": "79737310",
+                    "url": "https://github.com/Every-Flavor-Robotics/motorgo-experimental-boards/raw/refs/heads/main/motorgo_experimental_0.1.zip",
+                    "archiveFileName": "motorgo_experimental_0.1.zip",
+                    "checksum": "SHA-256:b2aa93a5dbf973047ff28432a2e9dbc6fcbc1a90c3bf85d788dc078d588b5fed",
+                    "size": "27813350",
                     "boards": [
                         {
                             "name": "MotorGo Plink (Beta)"
