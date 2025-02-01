@@ -1,0 +1,12 @@
+{
+    "boards": [
+        {
+            "name": "MotorGo Plink (Beta)",
+            "identifier": "motorgo_plink"
+        },
+        {
+            "name": "MotorGo Axis (Beta)",
+            "identifier": "motorgo_axis"
+        }
+    ]
+}
