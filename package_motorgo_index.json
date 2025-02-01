@@ -26,11 +26,6 @@
                     "toolsDependencies": [
                         {
                             "packager": "motorgo_experimental",
-                            "name": "esp32-arduino-libs",
-                            "version": "idf-release_v5.3-cfea4f7c-v1"
-                        },
-                        {
-                            "packager": "motorgo_experimental",
                             "name": "esptool_py",
                             "version": "4.9.dev3"
                         },
