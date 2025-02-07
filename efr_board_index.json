@@ -7,6 +7,10 @@
         {
             "name": "MotorGo Axis (Beta)",
             "identifier": "motorgo_axis"
+        },
+        {
+            "name": "MotorGo Core (Alpha)",
+            "identifier": "motorgo_core"
         }
     ]
 }
