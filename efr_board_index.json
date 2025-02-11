@@ -11,6 +11,10 @@
         {
             "name": "MotorGo Core (Alpha)",
             "identifier": "motorgo_core"
+        },
+        {
+            "name": "MotorGo Mini",
+            "identifier": "motorgo_mini"
         }
     ]
 }
